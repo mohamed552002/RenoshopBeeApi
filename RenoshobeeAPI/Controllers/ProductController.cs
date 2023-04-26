@@ -14,9 +14,9 @@ namespace RenoshobeeAPI.Controllers
     {
         private readonly ApplicationDBContext _context;
         private readonly IProductContext _productContext;
-        private readonly IProductImage _productImage;
-        private readonly IProductDate _productDate;
-        public ProductController(ApplicationDBContext context, IProductImage productImage, IProductDate productDate, IProductContext productContext)
+        private readonly IImageServices<Product> _productImage;
+        private readonly IDateServices<Product> _productDate;
+        public ProductController(ApplicationDBContext context, IImageServices<Product> productImage, IDateServices<Product> productDate, IProductContext productContext)
         {
             _context = context;
             _productImage = productImage;
@@ -34,8 +34,8 @@ namespace RenoshobeeAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _productImage.ProductImageSet(product, product.ImgFile);
-                _productDate.SetProductDatesToNow(product);
+                _productImage.ImageSet(product, product.ImgFile);
+                _productDate.SetDateToNow(product);
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return Ok(product);
@@ -60,8 +60,8 @@ namespace RenoshobeeAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _productImage.ProductImageEdit(product, product.ImgFile);
-                _productDate.SetProductUpdatedAtNow(product);
+                _productImage.ImageEdit(product, product.ImgFile);
+                _productDate.SetUpdatedAtNow(product);
                 _context.Update(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

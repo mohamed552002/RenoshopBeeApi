@@ -44,10 +44,5 @@ namespace RenoshopBee.Models
         public IFormFile ImgFile { get; set; }
         [DisplayName("Active")]
         public bool Is_active { get; set; }
-        //[ValidateNever]
-        //[NotMapped]
-        //public ICollection<ProductReview> productReview { get; set; }
-        //public ICollection<ProductSizes>? availableSizes { get; set; }
-
     }
 }

@@ -8,8 +8,8 @@ namespace RenoshopBee.Implementation
     public class ProductContextServices : IProductContext
     {
         private readonly ApplicationDBContext _context;
-        private readonly IProductImage _productImage;
-        public ProductContextServices(ApplicationDBContext context, IProductImage productImage)
+        private readonly IImageServices<Product> _productImage;
+        public ProductContextServices(ApplicationDBContext context, IImageServices<Product> productImage)
         {
             _context = context;
             _productImage = productImage;
@@ -19,7 +19,7 @@ namespace RenoshopBee.Implementation
         {
             if (product != null)
             {
-                _productImage.ProductImageDelete(product);
+                _productImage.ImageDelete(product);
                 _context.Products.Remove(product);
             }
         }
