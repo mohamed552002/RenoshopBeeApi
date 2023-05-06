@@ -37,6 +37,8 @@ namespace RenoshobeeAPI.Model
         public DateTime LastUpdatedAt { get; set; }
         [ValidateNever,NotMapped,JsonIgnore]
         public IFormFile Imgfile { get; set; }
+        [ValidateNever]
+        public List<Order> Orders { get; set; }
 
     }
 }

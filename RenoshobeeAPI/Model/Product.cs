@@ -28,7 +28,7 @@ namespace RenoshopBee.Models
 
         [Required(ErrorMessage = "The number of products available in stock required")]
         [DisplayName("Available in stock")]
-        public int Av_in_stock { get; set; }
+        public int numberOfItemsInStock { get; set; }
         [Required(ErrorMessage = "Category is required")]
         public string Category { get; set; }
         [DataType(DataType.Date)]
@@ -42,7 +42,6 @@ namespace RenoshopBee.Models
         [ValidateNever]
         [NotMapped]
         public IFormFile ImgFile { get; set; }
-        [DisplayName("Active")]
-        public bool Is_active { get; set; }
+        public bool IsAvailable { get; set; }
     }
 }

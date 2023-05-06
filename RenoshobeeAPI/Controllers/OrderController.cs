@@ -22,7 +22,7 @@ namespace RenoshobeeAPI.Controllers
         {
             order.OrderDate = DateTime.Now;
             order.TotalQuantity = _orderServices.CalculateTotalQuantity(order);
-            order.TotalPrice = _orderServices.CalculateTotalPrice(order);   
+            order.TotalPrice = _orderServices.CalculateTotalPrice(order);
             _dbContext.Add(order);
             _dbContext.SaveChanges();
         }

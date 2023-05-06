@@ -13,17 +13,17 @@ namespace RenoshobeeAPI.Model
         public DateTime OrderDate { get; set; }
         [Required, DataType(DataType.Currency)]
         public decimal? ShippingPrice { get; set; }
-        [Required, DataType(DataType.Currency)]
+        [Required, DataType(DataType.Currency), Range(0, double.MaxValue)]
         public decimal SubTotalPrice { get; set; }
-        [Required, DataType(DataType.Currency)]
+        [Required, DataType(DataType.Currency),Range(0,double.MaxValue)]
         public decimal TotalPrice { get; set; }
-        [Required]
+        [Required,Range(0,int.MaxValue)]
         public int TotalQuantity { get; set; }
         [Required]
         public string PaymentMethod { get; set; }
         [ValidateNever,JsonIgnore]
         public Customer Customer { get; set; }
-        [ValidateNever]
+        [Required]
         public List<OrderItem> orderItems { get; set; }
     }
 }

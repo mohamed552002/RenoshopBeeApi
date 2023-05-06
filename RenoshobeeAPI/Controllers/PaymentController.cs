@@ -17,6 +17,7 @@ namespace RenoshobeeAPI.Controllers
         [HttpPost]
         public void AddCreditCard(CreditCart creditCard)
         {
+            creditCard.Balance = creditCard.Balance - creditCard.Order.TotalPrice;
             _dbContext.Add(creditCard);
             _dbContext.SaveChanges();
         }

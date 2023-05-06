@@ -28,7 +28,8 @@ namespace RenoshobeeAPI.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            var allAddresses = await _address.GetAllAddresses();
+            await _context.Orders.ToListAsync();
+            await _address.GetAllAddresses();
             return Ok(await _context.customers.ToListAsync());
         }
         [HttpPost]

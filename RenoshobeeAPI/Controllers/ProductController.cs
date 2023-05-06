@@ -32,7 +32,7 @@ namespace RenoshobeeAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([FromForm] Product product)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid )
             {
                 _productImage.ImageSet(product, product.ImgFile);
                 _productDate.SetDateToNow(product);
@@ -66,7 +66,7 @@ namespace RenoshobeeAPI.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return Ok(product);
+            return UnprocessableEntity(product);
         }
     }
 }

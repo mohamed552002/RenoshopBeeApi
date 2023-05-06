@@ -15,9 +15,9 @@ namespace RenoshobeeAPI.Model
         public string Size { get; set; }
         [MaxLength(50)]
         public string Color { get; set; }
-        [Required]
+        [Required,Range(0,int.MaxValue)]
         public int Quantity { get; set; }
-        [Required, DataType(DataType.Currency)]
+        [Required, DataType(DataType.Currency),Range(0,double.MaxValue)]
         public decimal TotalPrice { get; set; }
         [ValidateNever,JsonIgnore]
         public Product product { get; set; }
