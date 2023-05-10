@@ -64,7 +64,7 @@ namespace RenoshobeeAPI.Controllers
                 _productDate.SetUpdatedAtNow(product);
                 _context.Update(product);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Ok(product);
             }
             return UnprocessableEntity(product);
         }

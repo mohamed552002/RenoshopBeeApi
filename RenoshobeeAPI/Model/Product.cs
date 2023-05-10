@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace RenoshopBee.Models
 {
@@ -40,7 +41,7 @@ namespace RenoshopBee.Models
         [DataType(DataType.ImageUrl)]
         public string Img_url { get; set; }
         [ValidateNever]
-        [NotMapped]
+        [NotMapped,JsonIgnore]
         public IFormFile ImgFile { get; set; }
         public bool IsAvailable { get; set; }
     }

@@ -38,11 +38,16 @@ namespace RenoshobeeAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _ImageServices.ImageSet(customer, customer.Imgfile);
-                _date.SetDateToNow(customer);
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
-                return Ok(customer);
+                if (await _context.customers.FirstOrDefaultAsync(c => c.Email == customer.Email) != null)
+                {
+                    return BadRequest("Email must be unique");
+                }
+                    _ImageServices.ImageSet(customer, customer.Imgfile);
+                    _date.SetDateToNow(customer);
+                    _context.Add(customer);
+                    await _context.SaveChangesAsync();
+                    return Ok(customer);
+                
             }
             return UnprocessableEntity();
         }
