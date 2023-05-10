@@ -15,21 +15,38 @@ namespace RenoshobeeAPI.Controllers
             _dbContext = dbContext;
         }
         [HttpPost]
-        public void AddCreditCard(CreditCart creditCard)
+        public ActionResult AddCreditCard(CreditCart creditCard)         
         {
-            creditCard.Balance = creditCard.Balance - creditCard.Order.TotalPrice;
-            _dbContext.Add(creditCard);
-            _dbContext.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                creditCard.Order = _dbContext.Orders.Find(creditCard.OrderId);
+                creditCard.Balance = creditCard.Balance - creditCard.Order.TotalPrice;
+                _dbContext.Add(creditCard);
+                _dbContext.SaveChanges();
+                return Ok(creditCard);
+            }
+            return BadRequest();
         }
         [HttpGet]
-        public CreditCart GetCreditCardById(int id)
+        public ActionResult GetCreditCardById(int id)
         {
-            return _dbContext.creditCarts.FirstOrDefault(card => card.Id == id);
+            if (_dbContext.creditCarts.Any(c => c.Id == id))
+            {
+                return Ok(_dbContext.creditCarts.FirstOrDefault(card => card.Id == id));
+            }
+            return NotFound("No Credit Card With this id has been found");
+
         }
         [HttpDelete]
-        public void DeleteCreditCard(int id)
+        public ActionResult DeleteCreditCard(int id)
         {
-            _dbContext.creditCarts.Remove(GetCreditCardById(id));
+            if (_dbContext.creditCarts.Any(c => c.Id == id))
+            {
+                _dbContext.creditCarts.Remove(_dbContext.creditCarts.FirstOrDefault(card => card.Id == id));
+                _dbContext.SaveChanges();
+                return Ok();
+            }
+            return NotFound("No Credit Card With this id has been found");
         }
     }
 }

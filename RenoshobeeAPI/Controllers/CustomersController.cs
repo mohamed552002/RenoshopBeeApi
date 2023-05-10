@@ -6,6 +6,7 @@ using RenoshobeeAPI.Interfaces.Customer_AddressInterfaces;
 using RenoshobeeAPI.Model;
 using RenoshopBee.Interfaces.ProductInterfaces;
 using RenoshopBee.Models;
+using AutoMapper;
 
 namespace RenoshobeeAPI.Controllers
 {
@@ -26,14 +27,14 @@ namespace RenoshobeeAPI.Controllers
             _date = date;
         }
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> ListAllCustomers()
         {
             await _context.Orders.ToListAsync();
             await _address.GetAllAddresses();
             return Ok(await _context.customers.ToListAsync());
         }
         [HttpPost]
-        public async Task<ActionResult> Create([FromForm] Customer customer)
+        public async Task<ActionResult> CreateCustomer([FromForm] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -46,10 +47,11 @@ namespace RenoshobeeAPI.Controllers
             return UnprocessableEntity();
         }
         [HttpPut]
-        public async Task<ActionResult> Edit([FromForm] Customer customer)
+        public async Task<ActionResult> EditCustomer(int id,[FromForm] Customer customer)
         {
             if (ModelState.IsValid)
             {
+                customer.Orders = await _context.Orders.Where(order => order.CustomerId == id).ToListAsync();
                 _ImageServices.ImageEdit(customer, customer.Imgfile);
                 _date.SetUpdatedAtNow(customer);
                 _context.Update(customer);
@@ -59,7 +61,7 @@ namespace RenoshobeeAPI.Controllers
             return UnprocessableEntity();
         }
         [HttpDelete]
-        public async Task Delete(int id)
+        public async Task DeleteCustomerById(int id)
         {
             var customer = await _context.customers.FirstOrDefaultAsync(x => x.Id == id);
             _ImageServices.ImageDelete(customer);

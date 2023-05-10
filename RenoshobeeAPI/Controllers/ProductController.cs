@@ -25,12 +25,12 @@ namespace RenoshobeeAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> ListProducts()
         {
             return Ok(await _context.Products.ToListAsync());
         }
         [HttpPost]
-        public async Task<ActionResult> Create([FromForm] Product product)
+        public async Task<ActionResult> CreateProduct([FromForm] Product product)
         {
             if (ModelState.IsValid )
             {
@@ -43,7 +43,7 @@ namespace RenoshobeeAPI.Controllers
             return UnprocessableEntity(product);
         }
         [HttpDelete]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteProductById(int id)
         {
             if (_context.Products == null)
             {
@@ -56,7 +56,7 @@ namespace RenoshobeeAPI.Controllers
         }
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPut]
-        public async Task<IActionResult> Edit(int id,[FromForm] Product product)
+        public async Task<IActionResult> EditProduct([FromForm] Product product)
         {
             if (ModelState.IsValid)
             {

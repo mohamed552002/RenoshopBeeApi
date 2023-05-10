@@ -32,7 +32,6 @@ builder.Services.AddTransient<IProductContext, ProductContextServices>();
 builder.Services.AddTransient<ICustomerAddress, CustomerAddressServices>();
 builder.Services.AddTransient<ICartServices,CartServices>();
 builder.Services.AddTransient<IOrderServices,OrderServices>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

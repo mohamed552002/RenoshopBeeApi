@@ -18,19 +18,21 @@ namespace RenoshobeeAPI.Controllers
             _orderServices = orderServices;
         }
         [HttpPost]
-        public void MakeOrder(Order order)
+        public ActionResult MakeOrder(Order order)
         {
             order.OrderDate = DateTime.Now;
             order.TotalQuantity = _orderServices.CalculateTotalQuantity(order);
             order.TotalPrice = _orderServices.CalculateTotalPrice(order);
             _dbContext.Add(order);
             _dbContext.SaveChanges();
+            return Ok(order);
         }
         [HttpGet]
-        public IEnumerable<Order> GetOrders()
+        public ActionResult<IEnumerable<Order>> GetOrders()
         {
-            _dbContext.OrderItems.ToList();
-            return _dbContext.Orders.ToList();
+            if (_dbContext.OrderItems == null)
+                return NotFound("There are no orders yet");
+            return Ok(_dbContext.Orders.ToList());
         }
 
         

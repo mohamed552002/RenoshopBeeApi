@@ -50,9 +50,12 @@ namespace RenoshobeeAPI.Implementation
         public void RemoveProductFromCart(int productId)
         {
             var cart = GetCartItems();
-            Product product = cart.products.Where(product => product.ID == productId).FirstOrDefault();
-            cart.products.Remove(product);
-            SaveCartToSession(cart) ;
+            if (cart.products != null)
+            {
+                Product product = cart.products.Where(product => product.ID == productId).FirstOrDefault();
+                cart.products.Remove(product);
+                SaveCartToSession(cart);
+            }
         }
     }
 }
